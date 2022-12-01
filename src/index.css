@@ -14,6 +14,24 @@
   }
 }
 
+@font-face {
+  font-family: 'Alatsi';
+  src: local('Alatsi'), url(../public/fonts/Alatsi/Alatsi-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Alef';
+  src: local('Alef'), url(../public/fonts/Alef/Alef-Regular.ttf) format('truetype');
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Alatsi', Helvetica, sans-serif;
+}
+
+body, div, p{
+  font-family: 'Alef', Helvetica, sans-serif;
+}
+
 .tsparticle-overlay {
   position: fixed;
   width: 100%;
@@ -38,7 +56,7 @@ code {
   color: #fff;
   border: 1px solid black;
   border-radius: 15px;
-  box-shadow: 9px 9px #999;
+  box-shadow: 5px 5px black;
 }
 
 .animated-image:hover {
@@ -47,7 +65,25 @@ code {
 
 .animated-image:active {
   opacity: .6;
-  box-shadow: 5px 5px #666;
+  box-shadow: 2px 2px #666;
+  transform: translateY(4px);
+}
+
+.animated-image-box {
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 3px 3px grey;
+}
+
+.animated-image-box:hover {
+  opacity: .6;
+}
+
+.animated-image-box:active {
+  opacity: .6;
+  box-shadow: 2px 2px #666;
   transform: translateY(4px);
 }
 

@@ -15,7 +15,7 @@ function App(): JSX.Element {
   return (
     <div className="content-container">
       <Header />
-      <div className="flex main-container" >
+      <div className="flex main-container justify-center" >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/project" element={<ProjectPreview />} />
