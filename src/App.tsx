@@ -9,7 +9,7 @@ import BlogPreview from "./routes/Blog/BlogPreview";
 import Blog from "./routes/Blog/Blog";
 import Contact from "./routes/Contact/Contact";
 import Project from "./routes/Projects/Project";
-
+import WrongPage from "./components/Error/WrongPage";
 
 function App(): JSX.Element {
   return (
@@ -23,6 +23,7 @@ function App(): JSX.Element {
           <Route path="/blog" element={<BlogPreview />} />
           <Route path="/blog/:blogSlug" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<WrongPage/>}/>
         </Routes>
       </div>
       <div className="footer-container z-10">

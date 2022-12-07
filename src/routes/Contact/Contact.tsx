@@ -146,7 +146,7 @@ const Contact = (): JSX.Element => {
     const onChangeHandlerAffiliation = (event: React.ChangeEvent<EventTarget>) => { const target = event.target as HTMLInputElement; setAffiliation(target.value) };
     const onChangeHandlerMessage = (event: React.ChangeEvent<EventTarget>) => { const target = event.target as HTMLTextAreaElement; setMessage(target.value) };
 
-    const handleSubmit = async (event: React.FormEvent<EventTarget>) => {
+    const onSubmitHandlerContact = async (event: React.FormEvent<EventTarget>) => {
         event.preventDefault();
 
         try {
@@ -166,11 +166,20 @@ const Contact = (): JSX.Element => {
     if (submitted) {
         return (
             <>
-                <div className="container border-1 p-10 mx-auto mt-5 mb-5 border-gray-200 border rounded shadow-lg w-6/12">
+            <Particles
+                id="tsparticles"
+                init={particlesInit}
+                loaded={particlesLoaded}
+                className="tsparticle-overlay"
+                options={TS_PARTICLES_OPTIONS}
+            />
+            <div className="flex w-full items-center justify-center bg-[#F8F8FF]" style={{ backgroundImage: "url(/cake.svg)", backgroundSize: "cover", backgroundRepeat: "no-repeat"}}>
+            <div className="bg-[#E4EAFF] border-1 p-4 md:p-12 lg:p-16 my-5 w-4/5 md:w-3/5 lg:w-2/5 border-black border-solid border-8 rounded-xl z-10">
                     <div className="text-4xl text-center underline">Your message has been successfully sent!</div>
                     <div className="text-2xl text-center mt-5">I will be in touch with you shortly 🚀</div>
                     <div className="text-2xl text-center mt-5">In the mean time... why don't you checkout my <a href="/project" className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600">projects</a> or <a href="blog" className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600">blog</a> 👀</div>
                 </div>
+            </div>
             </>
         )
     }
@@ -184,78 +193,73 @@ const Contact = (): JSX.Element => {
                 className="tsparticle-overlay"
                 options={TS_PARTICLES_OPTIONS}
             />
-            <div className="flex flex-col w-full items-center justify-center bg-[#ffe4c4]" style={{ backgroundImage: "url(/cake.png)" }}>
-                <div className="bg-[#fffaf0] container border-1 p-10 mx-auto mt-5 mb-5 w-6/12 border-black border-solid border-2 shadow-custom drop-shadow-lg shadow-black z-10">
-                    <div className="text-xl font-bold">Contact Me</div>
-                    <div className="mt-1">Send me a message and I will be in touch promptly.</div>
+            <div className="flex w-full items-center justify-center bg-[#F8F8FF]" style={{ backgroundImage: "url(/cake.svg)", backgroundSize: "cover", backgroundRepeat: "no-repeat"}}>
+                <div className="bg-[#E4EAFF] border-1 p-4 md:p-12 lg:p-16 my-5 w-4/5 md:w-3/5 lg:w-2/5 border-black border-solid border-8 rounded-xl z-10">
+                    <div className="text-lg md:text-2xl lg:text-4xl font-bold">LET'S WORK TOGETHER.</div>
                     <form
                         action={BACKEND_CONTACT_API_URL}
-                        onSubmit={(event) => handleSubmit(event)}
+                        onSubmit={(event) => onSubmitHandlerContact(event)}
                         method="POST"
                         target="_blank"
                         className="mt-5"
                     >
-                        <div className="mt-5 mb-5 pt-0 font-bold">
-                            <label className="inline-block mb-2">Name</label>
+                        <div className="my-5 pt-0 font-bold">
                             <input
                                 type="text"
-                                placeholder="Your full name..."
+                                placeholder="Name..."
                                 name="name"
                                 minLength={1}
                                 maxLength={30}
                                 onChange={onChangeHandlerName}
                                 value={name}
-                                className="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white rounded text-sm border-0 shadow outline-non focus:outline-none focus:ring w-full"
+                                className="border-2 border-black px-3 py-3 placeholder-grey-800 text-black text-md md:text-xl lg:text-xl relative bg-white rounded  shadow-2xl outline-non focus:outline-none focus:ring w-full"
                                 required
                             />
                         </div>
                         <div className="mb-5 pt-0 font-bold">
-                            <label className="inline-block mb-2">Affiliation</label>
                             <input
                                 type="text"
-                                placeholder="Your affiliation..."
+                                placeholder="Affiliation..."
                                 name="affiliation"
                                 minLength={1}
                                 maxLength={30}
                                 onChange={onChangeHandlerAffiliation}
                                 value={affiliation}
-                                className="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white rounded text-sm border-0 shadow outline-non focus:outline-none focus:ring w-full"
+                                className="border-2 border-black px-3 py-3 placeholder-grey-800 text-black text-md md:text-xl lg:text-xl relative bg-white rounded  shadow-2xl outline-non focus:outline-none focus:ring w-full"
                                 required
                             />
                         </div>
                         <div className="mb-5 pt-0 font-bold">
-                            <label className="inline-block mb-2">Email</label>
                             <input
                                 type="email"
-                                placeholder="Your email..."
+                                placeholder="Email..."
                                 name="email"
                                 minLength={1}
                                 maxLength={30}
                                 onChange={onChangeHandlerEmail}
                                 value={email}
-                                className="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white rounded text-sm border-0 shadow outline-non focus:outline-none focus:ring w-full"
+                                className="border-2 border-black px-3 py-3 placeholder-grey-800 text-black text-md md:text-xl lg:text-xl relative bg-white rounded  shadow-2xl outline-non focus:outline-none focus:ring w-full"
                                 required
                             />
                         </div>
                         <div className="mb-5 pt-0 font-bold">
-                            <label className="inline-block mb-2">Message</label>
                             <textarea
-                                placeholder="Your message..."
+                                placeholder="Message..."
                                 name="message"
                                 minLength={1}
                                 maxLength={200}
                                 onChange={onChangeHandlerMessage}
                                 value={message}
-                                className="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white rounded text-sm border-0 shadow outline-non focus:outline-none focus:ring w-full"
+                                className="border-2 border-black px-3 py-3 placeholder-grey-800 text-black text-md md:text-xl lg:text-xl relative bg-white rounded  shadow-2xl outline-non focus:outline-none focus:ring w-full"
                                 required
                             />
                         </div>
-                        <div className="flex justify-end">
-                            <button className="border-8 animated-image bg-blue-600 text-white font-bold uppercase text-sm px-6 py-3 mr-1 mb-1"
+                        <div className="flex justify-center ">
+                            <button className="flex justify-center w-1/2 border-8 bg-[#95ADFF] text-white font-bold uppercase text-xl p-3 border-black"
                             >
-                                Submit
+                                <img src="/send-button.svg" alt="send-button"/>
                             </button>
-                        </div>
+                        </div>                        
                     </form>
                 </div>
             </div>

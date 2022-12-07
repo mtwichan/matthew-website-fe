@@ -9,18 +9,20 @@ const BlogPreviewRow = ({previewImg, title, date, description, slug}: BlogPrevie
     const formatedDate = new Date(date).toLocaleDateString("en-us", { year: 'numeric', month: 'long', day: 'numeric', hour: "numeric", minute: "numeric"});
     return (
         <a href={`/blog/${slug}`}>
-            <div className="flex mt-4 bg-orange-100 hover:bg-orange-200 border-black border-solid border-2 shadow-custom drop-shadow-lg shadow-black">
-                <div className="pr-4 sm:h-[100px] md:h-[150px] lg:h-[175px]">
-                    <img className="h-full w-full object-contain" src={`${previewImg}`} alt={`${title} preview`}></img></div>
+            <div className="md:flex lg:flex mt-4 bg-[#FEFBF5] border-black border-solid border-2 animated-image rounded-lg">
+                <div className="p-6 md:w-1/2 lg:w-1/4 sm:h-[150px] md:h-[200px] lg:h-[225px]">
+                    <img className="h-full w-full object-fill border-black border-solid border rounded-lg" src={`${previewImg}`} alt={`${title} preview`}></img></div>
                 <div>
-                    <div>
-                        <h1 className="text-3xl font-bold">{title}</h1>
-                    </div>
-                    <div>
-                        <h3 className="text-md font-italic">{formatedDate}</h3>
-                    </div>
-                    <div>
-                        <p className="text-lg">{description}</p>
+                <div className="p-6"> 
+                        <div className="pb-3">
+                                <h1 className="text-3xl font-bold text-black">{title}</h1>
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-italic text-black">{formatedDate}</h3>
+                        </div>
+                        <div>
+                            <p className="text-lg text-black">{description}</p>
+                        </div>
                     </div>
                 </div>
             </div>

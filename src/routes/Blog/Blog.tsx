@@ -35,7 +35,7 @@ const Blog = (): JSX.Element => {
 
     return (
         <>
-            <div className="flex w-full justify-center bg-[#ffa500]">                
+            <div className="flex w-full justify-center bg-[#F4ECE0]">                
                 <BlogPage post={post}/>
             </div>
         </>

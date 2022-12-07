@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import ProjectPreviewCard from "../../components/Project/ProjectPreviewCard";
+import SearchBar from "../../components/SearchBar";
 import { BACKEND_PROJECT_API_URL } from "../../constants";
+
 type Project = {
     preview_img: string,
     title: string
@@ -11,6 +13,25 @@ type Project = {
     description: string,
     slug: string
 }
+
+const MARQUEE_ELEMENTS = (      
+    <>
+        <li>✦</li>
+        <li>PROJECTS</li>
+        <li>✦</li>
+        <li>PROJECTS</li>
+        <li>✦</li>
+        <li>PROJECTS</li>
+        <li>✦</li>
+        <li>PROJECTS</li>
+        <li>✦</li>
+        <li>PROJECTS</li>
+        <li>✦</li>
+        <li>PROJECTS</li>
+        <li>✦</li>
+        <li>PROJECTS</li>
+    </>                  
+)
 
 const ProjectPreview = (): JSX.Element => {
     const [projects, setProjects] = useState([])
@@ -36,42 +57,19 @@ const ProjectPreview = (): JSX.Element => {
 
     return (
         <>
-            <div className="w-full bg-[#7b68ee]">
-                <div className="marquee bg-purple-500 border border-black border-2 p-2 mt-5">
+            <div className="w-full bg-[#E5E0F4]">
+                <div className="marquee bg-[#C070FF] p-1">
                     <ul className="marquee-content font-bold text-4xl text-white">
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
+                        {MARQUEE_ELEMENTS}
                     </ul>
                     <ul aria-hidden="true" className="marquee-content font-bold text-4xl text-white">
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
-                        <li>✦</li>
-                        <li>PROJECTS</li>
+                        {MARQUEE_ELEMENTS}
                     </ul>
                 </div>
-                <div className="grid grid grid-cols-3 gap-4 mx-10">
+                <div className="mx-4 md:mx-16 lg:mx-22 mt-5 ">
+                    <SearchBar endpoint={BACKEND_PROJECT_API_URL} setFrontEnd={setProjects}/>
+                </div>
+                <div className="md:grid lg:grid md:grid-cols-2 lg:grid-cols-2 gap-10 mx-4 md:mx-16 lg:mx-22 mt-4 mb-12">                    
                     {renderProjectPreviews()}
                 </div>
             </div>

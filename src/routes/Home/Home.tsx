@@ -72,8 +72,7 @@ const ProjectCardContainer = ({ projectItems }: ProjectListProps): JSX.Element =
     )
 }
 const BlogPostList = ({ blogItems }: BlogListProps): JSX.Element => {
-    const itemCSS: string = "text-2xl w-full text-black block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0";
-    const listCSS: string = "border-b-2 border-black"
+    const itemCSS: string = "text-2xl w-full text-black block py-2 pr-4 pl-3 md:border-0 md:p-0 animated-link";
     const blogURI: string = "/blog"
 
     if (blogItems.length === 0) {
@@ -92,7 +91,7 @@ const BlogPostList = ({ blogItems }: BlogListProps): JSX.Element => {
                                 <NavLink to={`${blogURI}/${blogPost.slug}`} className={itemCSS}>
                                     <div className="p-5 border border-black rounded-lg">
                                         <h5>{blogPost.title}</h5>
-                                        <p>{blogPost.description}</p>
+                                        <p style={{wordBreak: "break-word"}}>{blogPost.description}</p>
                                     </div>                                                                        
                                 </NavLink>
                         )})
@@ -133,9 +132,9 @@ const Home = (): JSX.Element => {
 
     return (
         <>
-            <div className="flex flex-col flex-wrap md:flex-nowrap lg:flex-nowrap my-10 mx-44">
-                <div className="flex flex-wrap md:flex-nowrap lg:flex-nowrap">
-                    <div className="w-full p-5 m-[20px] md:w-[70%] lg:w-[70%] p-2 md:p-8 lg:p-8 border border-solid border-black rounded-2xl shadow-custom drop-shadow-lg shadow-black bg-[#EAEFEB]">
+            <div className="w-full block md:flex lg:flex md:flex-col lg:flex-col md:flex-nowrap lg:flex-nowrap my-6 mx-5 md:mx-30 lg:mx-30">
+                <div className="flex flex-wrap lg:flex-nowrap">
+                    <div className="flex flex-col w-full p-5 m-[20px] lg:w-[70%] p-2 md:p-8 lg:p-8 border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
                         <div className="flex flex-wrap flex-col items-center md:flex-row">
                             <div className="flex flex-col w-full justify-center items-start text-center md:text-left">
                                 <h1 className="my-4 text-4xl lg:text-5xl font-bold leading-tight border-0">Product Designer creating thoughtful, intuitive interfaces.</h1>
@@ -144,18 +143,17 @@ const Home = (): JSX.Element => {
                         <div className="container">
                             <div className="text-xl w-full">
                                 I’m Dale-Anthony, a UK based product designer with over ten years of experience. I specialise in interface design for mobile and web-based applications with a focus on simplicity & usability.
-                                I’m currently working at WP Engine on some of the worlds best WordPress products. Before that, I worked at BaseKit where I helped shape the future of website builders and tools to help small businesses thrive online. I also build tools like Design Vault and Does.Design.
                             </div>
-                            <div className="flex sm:flex-col md:flex-row align-center mt-16 mb-4 flex-wrap sm:space-y-4 md:space-x-12 lg:space-x-12">
-                                <button className="animated-image bg-[#F3F4FF] font-bold py-2 px-5 rounded-2xl"><p className="text-black text-2xl">Download Resume 🔽</p></button>
+                            <div className="flex sm:flex-col md:flex-row align-center mt-16 mb-4 flex-wrap space-y-4 md:space-y-0 lg:space-y-0 md:space-x-12 lg:space-x-12">
+                                <button className="animated-image bg-[#F3F4FF] font-bold py-2 px-5 rounded-2xl h-[75px]"><p className="text-black text-2xl">Download Resume 🔽</p></button>
                                 <a href="https://www.linkedin.com/in/matthewichan/" target="_blank" rel="noreferrer">
-                                    <button className="animated-image-box text-white inline-flex items-center">
-                                        <img className="w-full" src="/linkedin.svg" alt="LinkedIn Logo"/>
+                                    <button className="animated-image-box inline-flex items-center">
+                                        <img className="w-full h-[75px]" src="/linkedin.svg" alt="LinkedIn Logo"/>
                                     </button>
                                 </a>
                                 <a href="https://github.com/mtwichan" target="_blank" rel="noreferrer">
                                     <button className="animated-image-box inline-flex items-center">
-                                        <img className="object-fit" src="/github.svg" alt="GitHub Logo"/>
+                                        <img className="w-full rounded-xl h-[75px]" src="/github.svg" alt="GitHub Logo"/>
                                     </button>
                                 </a>
                             </div>
@@ -163,14 +161,14 @@ const Home = (): JSX.Element => {
 
 
                     </div>        
-                    <div className="w-full m-[20px] md:w-[30%] lg:w-[30%] border border-solid border-black rounded-2xl shadow-custom drop-shadow-lg shadow-black bg-[#EAEFEB]">
-                        <img src="/me.jpeg" alt="Picture of Matthew Chan" className="w-full h-full rounded-2xl" />
+                    <div className="w-full m-[20px] lg:w-[30%] border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
+                        <img src="/me.jpeg" alt="Picture of Matthew Chan" className="w-full h-full rounded-2xl object-cover" />
                     </div>
 
                 </div>
-                <div className="flex flex-wrap md:flex-nowrap lg:flex-nowrap">
-                    <div className="flex w-full m-[20px] md:w-[70%] lg:w-[70%]">
-                        <div className="w-full p-2 md:p-8 lg:p-8 border border-solid border-black rounded-2xl shadow-custom drop-shadow-lg shadow-black bg-[#EAEFEB]">
+                <div className="flex flex-wrap lg:flex-nowrap">
+                    <div className="flex w-full m-[20px] lg:w-[70%]">
+                        <div className="w-full p-2 md:p-8 lg:p-8 border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
                             <div className="flex flex-wrap flex-col items-center md:flex-row">
                                 <div className="flex flex-col w-full justify-center items-center md:items-start lg:items-start md:text-left">
                                     <h1 className="my-4 text-5xl font-bold leading-tight border-0">Recent Projects</h1>
@@ -189,14 +187,16 @@ const Home = (): JSX.Element => {
                         </div>
                     </div>
 
-                    <div className="flex flex-wrap md:flex-nowrap m-[20px] lg:flex-nowrap w-full md:w-[30%] lg:w-[30%]">
+                    <div className="flex flex-wrap md:flex-nowrap m-[20px] lg:flex-nowrap w-full lg:w-[30%]">
                         <div className="flex flex-col w-full">
-                            <div className="flex p-3 md:grow-[2] lg:grow-[2] md:p-8 lg:p-8 border border-solid border-black rounded-2xl shadow-custom drop-shadow-lg shadow-black bg-[#EAEFEB]">
+                            <div className="flex p-3 md:grow-[2] lg:grow-[2] md:p-8 lg:p-8 border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
                                 <div className="container mx-auto flex flex-wrap flex-col">
                                     <div className="flex flex-col w-full justify-center text-center">
                                         <h1 className="my-4 text-3xl lg:text-5xl font-bold leading-tight border-0">Recent Blog Posts</h1>
                                     </div>
-                                    <BlogPostList blogItems={blogs} />
+                                    <div className="mb-5">
+                                        <BlogPostList blogItems={blogs} />
+                                    </div>                                    
                                     <div className="flex justify-center mt-auto w-full">
                                         <NavLink to="/blog">
                                         <button className="animated-image text-clip border border-solid border-black bg-[#F3F4FF] p-5 font-bold text-3xl inline-flex justify-center items-center space-x-2 rounded-2xl">
@@ -210,9 +210,9 @@ const Home = (): JSX.Element => {
 
 
                             <div className="flex flex-1 flex-wrap md:flex-nowrap lg:flex-nowrap w-full">
-                                <div className="w-full mt-5 p-3 md:p-6 lg:p-6 border border-solid border-black rounded-2xl shadow-custom drop-shadow-lg shadow-black bg-[#EAEFEB]">
+                                <div className="w-full mt-5 p-3 md:p-6 lg:p-6 border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
                                     <div className="flex flex-col w-full">
-                                        <h1 className="flex text-center text-3xl lg:text-4xl font-bold">Want to work together?</h1>
+                                        <h1 className="flex justify-center text-3xl lg:text-4xl font-bold">Want to work together?</h1>
                                         <div className="flex w-full flex-col align-center justify-center item-center">
                                             <NavLink to="/contact" className="flex justify-center">
                                                 <button className="animated-image text-clip border border-solid border-black bg-[#F3F4FF] mt-5 p-5 font-bold text-3xl inline-flex justify-center items-center space-x-2 rounded-2xl">

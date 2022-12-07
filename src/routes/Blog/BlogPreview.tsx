@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import BlogPreviewRow from "../../components/Blog/BlogPreviewRow";
+import SearchBar from "../../components/SearchBar";
 import { BACKEND_BLOG_API_URL } from "../../constants";
 
 interface Post {
@@ -10,6 +11,33 @@ interface Post {
     description: string;
     slug: string;
 }
+
+const BLOG_MARQUEE = (
+    <> 
+        <li>✦</li>
+        <li>BLOG</li>
+        <li>✦</li>
+        <li>BLOG</li>
+        <li>✦</li>
+        <li>BLOG</li>
+        <li>✦</li>
+        <li>BLOG</li>
+        <li>✦</li>
+        <li>BLOG</li>
+        <li>✦</li>
+        <li>BLOG</li>
+        <li>✦</li>
+        <li>BLOG</li>
+        <li>✦</li>
+        <li>BLOG</li>
+        <li>✦</li>
+        <li>BLOG</li>
+        <li>✦</li>
+        <li>BLOG</li>
+        <li>✦</li>
+        <li>BLOG</li>
+    </>
+)
 
 const BlogPreview = (): JSX.Element => {
     const [posts, setPosts] = useState([])
@@ -35,58 +63,17 @@ const BlogPreview = (): JSX.Element => {
 
     return (
         <>
-            <div className="w-full bg-[#FFA500]">
-                <div className="marquee bg-orange-500 border border-black border-2 p-2 mt-5">
+            <div className="w-full bg-[#F4ECE0]">
+                <div className="marquee bg-[#FFAB48] p-2">
                     <ul className="marquee-content font-bold text-4xl text-white">
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
+                        {BLOG_MARQUEE}
                     </ul>
                     <ul aria-hidden="true" className="marquee-content font-bold text-4xl text-white">
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
-                        <li>✦</li>
-                        <li>BLOG</li>
+                        {BLOG_MARQUEE}
                     </ul>
-                </div>
-                <div className="mx-10">
+                </div>                
+                <div className="mx-4 md:mx-16 lg:mx-64 my-6">
+                    <SearchBar endpoint={BACKEND_BLOG_API_URL} setFrontEnd={setPosts}/>
                     {renderBlogPreviews()}
                 </div>
             </div>

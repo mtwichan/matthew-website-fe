@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        'custom': '0.4375rem 0.4375rem 0 #221f20'
+        'custom': '0.3375rem 0.3375rem 0 #221f20'
       }
     },
   },

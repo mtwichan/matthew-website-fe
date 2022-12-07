@@ -1,5 +1,5 @@
 import ReactMarkdown from 'react-markdown'
-import WrongPage from "../Error/WrongPage"
+import { NavLink } from "react-router-dom";
 
 interface Post {
     title: string;
@@ -14,25 +14,24 @@ interface BlogPageProps {
     post: Post | undefined
 }
 
-const BlogPage = ({post}: BlogPageProps): JSX.Element => {
+const BlogPage = ({post}: BlogPageProps): JSX.Element | null => {    
     if (post !== undefined) {
+        const formatedDate = new Date(post.created_on).toLocaleDateString("en-us", { year: 'numeric', month: 'long', day: 'numeric'});
         return (
-            <div className="container mt-10 mb-10 bg-white">
-                <div className="border-2 border-black p-16 bg-white shadow-custom drop-shadow-lg shadow-black h-full">
-                    <div className="flex flex-col">
-                        <div className='mt-2'>
-                            <h2 className="text-3xl font-bold">{post.title}</h2>                        
-                        </div>
-                        <div className='mt-1'>
-                            <h4 className="text-2xl">{post.description}</h4>
-                        </div>
-                        <div className='mt-1 h-1/2 w-100 max-h-1/3'>
-                            <img className="object-scale-down max-h-96 h-auto w-100" src={post.preview_img} alt={`Describing ${post.description}`}></img>
-                        </div>
-                        
+            <div className="container mx-4 md:mx-14 lg:mx-5 my-5 bg-[#FEFBF5]">
+                <div className="h-full border-2 border-black rounded-xl p-10 bg-[#FEFBF5] shadow-custom drop-shadow-lg shadow-black">
+                    <div className="flex flex-row-reverse">
+                        <NavLink to="/blog" className="flex justify-center">
+                            <button className="animated-image py-2 px-4">
+                                <p className="text-black font-bold">X</p>                                                    
+                            </button>
+                        </NavLink>    
                     </div>
-                    <hr className='mt-5 border-black'/>
-                    <div className='mt-5'>
+                        <div className='mt-2 mb-10'>
+                            <h2 className="text-3xl text-center font-bold">{post.title}</h2>                        
+                        </div>                                         
+                    <div className='mt-5 md:mx-32 lg:mx-40'>
+                        <h5 className="text-xl text-left font-bold mb-3">{formatedDate}</h5>
                         <ReactMarkdown className="text-lg" children={post.content}/>
                     </div>
                 </div>            
@@ -40,9 +39,7 @@ const BlogPage = ({post}: BlogPageProps): JSX.Element => {
         )
     }
 
-    return (
-        <WrongPage/>
-    )
+    return null;
 }
 
 export default BlogPage;

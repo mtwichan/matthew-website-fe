@@ -50,13 +50,25 @@ code {
     monospace;
 }
 
+.animated-input {
+  border: 1px solid black;
+  border-radius: 15px;
+  box-shadow: 4px 4px black;
+}
+
+.animated-input:focus {
+  border: 1px solid black;
+  border-radius: 15px;
+  box-shadow: 4px 4px black;
+}
+
 .animated-image {
   cursor: pointer;
   outline: none;
   color: #fff;
   border: 1px solid black;
   border-radius: 15px;
-  box-shadow: 5px 5px black;
+  box-shadow: 4px 4px black;
 }
 
 .animated-image:hover {
@@ -74,7 +86,7 @@ code {
   outline: none;
   color: #fff;
   border-radius: 12px;
-  box-shadow: 3px 3px grey;
+  box-shadow: 3px 3px black;
 }
 
 .animated-image-box:hover {
@@ -83,9 +95,25 @@ code {
 
 .animated-image-box:active {
   opacity: .6;
-  box-shadow: 2px 2px #666;
+  box-shadow: 2px 2px black;
   transform: translateY(4px);
 }
+
+.animated-link {
+  cursor: pointer;
+  outline: none;
+  color: black;
+}
+
+.animated-link:hover {
+  opacity: .6;
+}
+
+.animated-link:active {
+  opacity: .6;
+  transform: translateY(4px);
+}
+
 
 .marquee {
   --gap: 1rem;

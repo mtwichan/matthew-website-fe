@@ -36,7 +36,7 @@ const Project = (): JSX.Element => {
 
     return (
         <>
-            <div className="flex w-full justify-center bg-[#9370db]">                
+            <div className="flex w-full justify-center bg-[#E5E0F4]">                
                 <ProjectPage project={project}/>
             </div>
         </>
