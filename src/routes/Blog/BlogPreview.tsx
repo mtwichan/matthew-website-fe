@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef} from "react";
 import axios from "axios";
 import BlogPreviewRow from "../../components/Blog/BlogPreviewRow";
 import SearchBar from "../../components/SearchBar";
@@ -39,24 +39,74 @@ const BLOG_MARQUEE = (
     </>
 )
 
-const BlogPreview = (): JSX.Element => {
-    const [posts, setPosts] = useState([])
+const useFetchPaginated = (url: string, page: number, search: string) => {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [data, setData] = useState<Array<any>>([]);
+    const [hasNextPage, setHasNextPage] = useState(true)
+    const fetchPaginatedData = useCallback(async (url: string, page: number) => {
+        if (page === 0) {
+            console.log("page is zero return >>>")
+            return
+        }
+        try {
+            setLoading(true);
+            setError(false);
+            const response = await axios.get(`${url}?page=${page}&search=${search}`)
+            if (response.data.length === 0) {
+                setHasNextPage(false)
+            } else {
+                setHasNextPage(true)
+            }
+
+            const newData = [...data, ...response.data]
+            setData(newData)
+            setLoading(false);
+        } catch (error: any) {
+            await setError(error)
+        }
+    }, [page, setHasNextPage, hasNextPage]);
 
     useEffect(() => {
-        const fetchAllPosts = async () => {
-            try {
-                const response = await axios.get(BACKEND_BLOG_API_URL);
-                const postsData = response.data;
-                await setPosts(postsData)
-            } catch (error) {
-                console.log("error calling fetchAllPosts(): ", error)
-            }
-        }
-        fetchAllPosts();
-    }, [])
+        fetchPaginatedData(url, page)
+    }, [page])
+    return { data, hasNextPage, setHasNextPage, setData}
+}
 
+const BlogPreview = (): JSX.Element => {
+    const [page, setPage] = useState(0)
+    const [search, setSearch] = useState("");
+    const {data, hasNextPage, setHasNextPage, setData} = useFetchPaginated(BACKEND_BLOG_API_URL, page, search);
+    const loaderRef = useRef(null)
+    const hasNextPageRef = useRef(false)
+
+    hasNextPageRef.current = hasNextPage;
+
+    const handleObserver = useCallback((entries: any) => {
+        const target = entries[0]
+
+        if (target.isIntersecting && hasNextPageRef.current) {
+            setPage((newPage) => newPage + 1)
+        }
+    }, [page, search])
+
+    useEffect(() => {
+        
+        const options = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 1.0
+        }
+    
+        const observer = new IntersectionObserver(
+            handleObserver,
+            options
+        )
+
+        if (loaderRef.current) { observer.observe(loaderRef.current)}
+    }, [])
     const renderBlogPreviews = (): Array<JSX.Element> => {
-        return posts.map((post: Post, idx: number) => {
+        return data.map((post: Post, idx: number) => {
             return <BlogPreviewRow key={idx} previewImg={post.preview_img} title={post.title} date={post.created_on} description={post.description} slug={post.slug} />
         })
     }
@@ -73,9 +123,10 @@ const BlogPreview = (): JSX.Element => {
                     </ul>
                 </div>                
                 <div className="mx-4 md:mx-16 lg:mx-64 my-6">
-                    <SearchBar endpoint={BACKEND_BLOG_API_URL} setFrontEnd={setPosts}/>
+                    <SearchBar endpoint={BACKEND_BLOG_API_URL} search={search} setHasNextPage={setHasNextPage} setPage={setPage} setSearch={setSearch} setData={setData} />
                     {renderBlogPreviews()}
                 </div>
+                <div ref={loaderRef} />
             </div>
         </>
     )
