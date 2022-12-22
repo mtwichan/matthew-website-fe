@@ -1,5 +1,6 @@
-import { useEffect, useState, useCallback, useRef} from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 import BlogPreviewRow from "../../components/Blog/BlogPreviewRow";
 import SearchBar from "../../components/SearchBar";
 import { BACKEND_BLOG_API_URL } from "../../constants";
@@ -13,7 +14,7 @@ interface Post {
 }
 
 const BLOG_MARQUEE = (
-    <> 
+    <>
         <li>✦</li>
         <li>BLOG</li>
         <li>✦</li>
@@ -40,18 +41,13 @@ const BLOG_MARQUEE = (
 )
 
 const useFetchPaginated = (url: string, page: number, search: string) => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     const [data, setData] = useState<Array<any>>([]);
     const [hasNextPage, setHasNextPage] = useState(true)
     const fetchPaginatedData = useCallback(async (url: string, page: number) => {
         if (page === 0) {
-            console.log("page is zero return >>>")
             return
         }
         try {
-            setLoading(true);
-            setError(false);
             const response = await axios.get(`${url}?page=${page}&search=${search}`)
             if (response.data.length === 0) {
                 setHasNextPage(false)
@@ -61,22 +57,21 @@ const useFetchPaginated = (url: string, page: number, search: string) => {
 
             const newData = [...data, ...response.data]
             setData(newData)
-            setLoading(false);
         } catch (error: any) {
-            await setError(error)
+            console.log(`error fetching ${url}?page=${page}&search=${search}: `, error)
         }
     }, [page, setHasNextPage, hasNextPage]);
 
     useEffect(() => {
         fetchPaginatedData(url, page)
     }, [page])
-    return { data, hasNextPage, setHasNextPage, setData}
+    return { data, hasNextPage, setHasNextPage, setData }
 }
 
 const BlogPreview = (): JSX.Element => {
     const [page, setPage] = useState(0)
     const [search, setSearch] = useState("");
-    const {data, hasNextPage, setHasNextPage, setData} = useFetchPaginated(BACKEND_BLOG_API_URL, page, search);
+    const { data, hasNextPage, setHasNextPage, setData } = useFetchPaginated(BACKEND_BLOG_API_URL, page, search);
     const loaderRef = useRef(null)
     const hasNextPageRef = useRef(false)
 
@@ -91,19 +86,19 @@ const BlogPreview = (): JSX.Element => {
     }, [page, search])
 
     useEffect(() => {
-        
+
         const options = {
             root: null,
             rootMargin: "0px",
             threshold: 1.0
         }
-    
+
         const observer = new IntersectionObserver(
             handleObserver,
             options
         )
 
-        if (loaderRef.current) { observer.observe(loaderRef.current)}
+        if (loaderRef.current) { observer.observe(loaderRef.current) }
     }, [])
     const renderBlogPreviews = (): Array<JSX.Element> => {
         return data.map((post: Post, idx: number) => {
@@ -113,6 +108,11 @@ const BlogPreview = (): JSX.Element => {
 
     return (
         <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Matthew Chan - Blog Page</title>
+                <meta name="description" content="Matthew Chan - Blog page" />
+            </Helmet>
             <div className="w-full bg-[#F4ECE0]">
                 <div className="marquee bg-[#FFAB48] p-2">
                     <ul className="marquee-content font-bold text-4xl text-white">
@@ -121,7 +121,7 @@ const BlogPreview = (): JSX.Element => {
                     <ul aria-hidden="true" className="marquee-content font-bold text-4xl text-white">
                         {BLOG_MARQUEE}
                     </ul>
-                </div>                
+                </div>
                 <div className="mx-4 md:mx-16 lg:mx-64 my-6">
                     <SearchBar endpoint={BACKEND_BLOG_API_URL} search={search} setHasNextPage={setHasNextPage} setPage={setPage} setSearch={setSearch} setData={setData} />
                     {renderBlogPreviews()}

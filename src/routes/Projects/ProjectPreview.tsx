@@ -5,6 +5,7 @@ import axios from "axios";
 import ProjectPreviewCard from "../../components/Project/ProjectPreviewCard";
 import SearchBar from "../../components/SearchBar";
 import { BACKEND_PROJECT_API_URL } from "../../constants";
+import { Helmet } from "react-helmet";
 
 type Project = {
     preview_img: string,
@@ -33,18 +34,13 @@ const MARQUEE_ELEMENTS = (
     </>
 )
 const useFetchPaginated = (url: string, page: number, search: string) => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     const [data, setData] = useState<Array<any>>([]);
     const [hasNextPage, setHasNextPage] = useState(true)
     const fetchPaginatedData = useCallback(async (url: string, page: number) => {
         if (page === 0) {
-            console.log("page is zero return >>>")
             return
         }
         try {
-            setLoading(true);
-            setError(false);
             const response = await axios.get(`${url}?page=${page}&search=${search}`)
             if (response.data.length === 0) {
                 setHasNextPage(false)
@@ -54,9 +50,8 @@ const useFetchPaginated = (url: string, page: number, search: string) => {
 
             const newData = [...data, ...response.data]
             setData(newData)
-            setLoading(false);
         } catch (error: any) {
-            await setError(error)
+            console.log(`error fetching ${url}?page=${page}&search=${search}: `, error)
         }
     }, [page, setHasNextPage, hasNextPage]);
 
@@ -107,6 +102,11 @@ const ProjectPreview = (): JSX.Element => {
 
     return (
         <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Matthew Chan - Project Page</title>
+                <meta name="description" content="Matthew Chan - Project page" />
+            </Helmet>
             <div className="w-full bg-[#E5E0F4]">
                 <div className="marquee bg-[#C070FF] p-1">
                     <ul className="marquee-content font-bold text-4xl text-white">

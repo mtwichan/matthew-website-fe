@@ -7,6 +7,7 @@ import type { IOptions, RecursivePartial, Container, Engine } from "tsparticles-
 
 import ContactForm from "../../components/Contact/ContactForm";
 import { BACKEND_CONTACT_API_URL } from "../../constants";
+import { Helmet } from "react-helmet";
 
 const TS_PARTICLES_OPTIONS: (RecursivePartial<IOptions> | undefined) = {
     "fullScreen": {
@@ -166,6 +167,11 @@ const Contact = (): JSX.Element => {
     if (submitted) {
         return (
             <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Matthew Chan - Contact Success</title>
+                <meta name="description" content="Matthew Chan - Successfully sent an email" />
+            </Helmet>
             <Particles
                 id="tsparticles"
                 init={particlesInit}
@@ -186,6 +192,11 @@ const Contact = (): JSX.Element => {
     // TODO: create form component
     return (
         <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Matthew Chan - Contact Page</title>
+                <meta name="description" content="Matthew Chan - Contact page" />
+            </Helmet>
             <Particles
                 id="tsparticles"
                 init={particlesInit}

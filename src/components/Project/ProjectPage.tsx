@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import ReactMarkdown from 'react-markdown'
 import { NavLink } from "react-router-dom";
 
@@ -16,7 +17,13 @@ interface ProjectPageProps {
 const ProjectPage = ({project}: ProjectPageProps): JSX.Element | null => {
     if (project !== undefined) {
         return (
-            <div className="container mx-4 md:mx-14 lg:mx-5 my-5 bg-[#E5E0F4]">
+            <>
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <title>{`Matthew Chan - ${project.title}`}</title>
+                    <meta name="description" content={`Matthew Chan - ${project.description}`}/>
+                </Helmet>
+                <div className="container mx-4 md:mx-14 lg:mx-5 my-5 bg-[#E5E0F4]">
                 <div className="h-full border-2 border-black rounded-xl p-10 bg-[#F9F5FE] shadow-custom drop-shadow-lg shadow-black">
                         <div className="flex flex-row-reverse">
                         <NavLink to="/project" className="flex justify-center">
@@ -33,6 +40,7 @@ const ProjectPage = ({project}: ProjectPageProps): JSX.Element | null => {
                     </div>
                 </div>            
             </div>
+            </>
         )   
     } 
 

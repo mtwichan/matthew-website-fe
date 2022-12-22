@@ -1,5 +1,6 @@
+import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import axios from "axios";
 
 import { BACKEND_BLOG_API_URL, BACKEND_PROJECT_API_URL } from "../../constants";
@@ -45,7 +46,7 @@ const ProjectCard = ({ title, description, slug, imgSrc, className }: ProjectCar
                         </div>
                     </div>
                     <h3 className="text-2xl text-black m-2">{description}</h3>
-                    <div className="max-h-[250px]">
+                    <div className="max-h-[250px] overflow-auto">
                         <img src={imgSrc} alt={`${title}`} className="max-h-full max-w-full h-full w-full object-contain" />
                     </div>
                 </div>
@@ -84,19 +85,20 @@ const BlogPostList = ({ blogItems }: BlogListProps): JSX.Element => {
     return (
         <>
             <div className="w-full space-y-4 md:block ">
-                
-                    {
-                        blogItems.map((blogPost, idx) => {
-                            return (
-                                <NavLink to={`${blogURI}/${blogPost.slug}`} className={itemCSS}>
-                                    <div className="p-5 border border-black rounded-lg">
-                                        <h5>{blogPost.title}</h5>
-                                        <p style={{wordBreak: "break-word"}}>{blogPost.description}</p>
-                                    </div>                                                                        
-                                </NavLink>
-                        )})
-                    }
-                        
+
+                {
+                    blogItems.map((blogPost, idx) => {
+                        return (
+                            <NavLink to={`${blogURI}/${blogPost.slug}`} className={itemCSS}>
+                                <div className="p-5 border border-black rounded-lg">
+                                    <h5>{blogPost.title}</h5>
+                                    <p style={{ wordBreak: "break-word" }}>{blogPost.description}</p>
+                                </div>
+                            </NavLink>
+                        )
+                    })
+                }
+
             </div>
         </>
     )
@@ -104,6 +106,14 @@ const BlogPostList = ({ blogItems }: BlogListProps): JSX.Element => {
 const Home = (): JSX.Element => {
     const [blogs, setBlogs] = useState<Array<BlogListItemProps>>([])
     const [projects, setProjects] = useState<Array<ProjectListItemProps>>([])
+
+    const LANDING_PAGE_HEADER = "Matthew Chan - Full Stack & Smart Contracts Developer";
+    const LANDING_PAGE_CONTENT = `
+    \nHi 👋! I’m a Canadian software developer with experience writing full stack applications, smart contracts and building companies. Formally I studied electrical engineering at the University of British Columbia.
+    \nIn the past I built a **[software engineering consulting company](https://zyphr.ca/)** where my company built software for companies such as Google, Jane Street, Hyperloop, and Deloitte. Prior to that I worked at **[Plotly](https://plotly.com/)** full-time, and interned at **[Nuance Communications](https://www.nuance.com/index.html)**.
+    \nRecently I completed an engineering fellowship in Solidity at **[0xmacro](https://0xmacro.com/engineering-fellowship)**. I’ve since completed projects at the **[ETH NYC](https://ethglobal.com/showcase/echooo-messaging-protocol-h7oms)** and **[ETH Lisbon](https://taikai.network/ethlisbon/hackathons/ethlisbon-2022/projects/cl9txxyff24467501z26p21tjg9/idea)** hackathons, where one of the projects led to a pre-seed round of over half a million dollars.
+    &nbsp;  
+    `;
 
     useEffect(() => {
         const fetchBlogs = async (): Promise<void> => {
@@ -137,49 +147,60 @@ const Home = (): JSX.Element => {
                     <div className="flex flex-col w-full p-5 m-[20px] lg:w-[70%] p-2 md:p-8 lg:p-8 border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
                         <div className="flex flex-wrap flex-col items-center md:flex-row">
                             <div className="flex flex-col w-full justify-center items-start text-center md:text-left">
-                                <h1 className="my-4 text-4xl lg:text-5xl font-bold leading-tight border-0">Product Designer creating thoughtful, intuitive interfaces.</h1>
+                                <h1 className="my-4 text-4xl lg:text-5xl font-bold leading-tight border-0">{LANDING_PAGE_HEADER}</h1>
                             </div>
                         </div>
-                        <div className="container">
-                            <div className="text-xl w-full">
-                                I’m Dale-Anthony, a UK based product designer with over ten years of experience. I specialise in interface design for mobile and web-based applications with a focus on simplicity & usability.
+                        <div className="flex flex-col h-full container">
+                            <div style={{ "whiteSpace": "pre-line" }}>
+                                <ReactMarkdown linkTarget="_blank" className="text-2xl w-full " children={LANDING_PAGE_CONTENT} />
                             </div>
-                            <div className="flex sm:flex-col md:flex-row align-center mt-16 mb-4 flex-wrap space-y-4 md:space-y-0 lg:space-y-0 md:space-x-12 lg:space-x-12">
-                                <button className="animated-image bg-[#F3F4FF] font-bold py-2 px-5 rounded-2xl h-[75px]"><p className="text-black text-2xl">Download Resume 🔽</p></button>
+                            <div className="flex sm:flex-col md:flex-row align-center mt-auto mb-4 flex-wrap space-y-4 md:space-y-0 lg:space-y-0 md:space-x-12 lg:space-x-12">
+                                <Link to="/Matthew_Chan_Resume_Final.pdf" target="_blank" download>
+                                    <button className="animated-image bg-[#F3F4FF] font-bold py-2 px-5 rounded-2xl h-[75px]"><p className="text-black text-2xl">Download Resume 🔽</p></button>
+                                </Link>
                                 <a href="https://www.linkedin.com/in/matthewichan/" target="_blank" rel="noreferrer">
                                     <button className="animated-image-box inline-flex items-center">
-                                        <img className="w-full h-[75px]" src="/linkedin.svg" alt="LinkedIn Logo"/>
+                                        <img className="w-full h-[75px]" src="/linkedin.svg" alt="LinkedIn Logo" />
                                     </button>
                                 </a>
                                 <a href="https://github.com/mtwichan" target="_blank" rel="noreferrer">
                                     <button className="animated-image-box inline-flex items-center">
-                                        <img className="w-full rounded-xl h-[75px]" src="/github.svg" alt="GitHub Logo"/>
+                                        <img className="w-full rounded-xl h-[75px]" src="/github.svg" alt="GitHub Logo" />
                                     </button>
                                 </a>
                             </div>
                         </div>
-
-
-                    </div>        
-                    <div className="w-full m-[20px] lg:w-[30%] border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
-                        <img src="/me.jpeg" alt="Picture of Matthew Chan" className="w-full h-full rounded-2xl object-cover" />
                     </div>
-
+                    <div className="w-full m-[20px] lg:w-[30%] border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
+                        <img src="/me.jpeg" alt="Matthew Chan" className="w-full h-full rounded-2xl object-cover" />
+                    </div>
                 </div>
+
+                {/* <div className="flex flex-wrap lg:flex-nowrap">
+                    <div className="flex w-full m-[20px]">
+                        <div className="flex flex-col h-full w-full p-2 md:p-8 lg:p-8 border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
+                            <div className="flex flex-col w-full justify-center items-center md:items-start lg:items-start md:text-left">
+                                <h1 className="my-4 text-5xl font-bold leading-tight border-0">Experience</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div> */}
+
                 <div className="flex flex-wrap lg:flex-nowrap">
                     <div className="flex w-full m-[20px] lg:w-[70%]">
-                        <div className="w-full p-2 md:p-8 lg:p-8 border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
+                        <div className="flex flex-col h-full w-full p-2 md:p-8 lg:p-8 border border-solid border-black rounded-2xl shadow-custom bg-[#EAEFEB]">
                             <div className="flex flex-wrap flex-col items-center md:flex-row">
                                 <div className="flex flex-col w-full justify-center items-center md:items-start lg:items-start md:text-left">
                                     <h1 className="my-4 text-5xl font-bold leading-tight border-0">Recent Projects</h1>
                                 </div>
                                 <ProjectCardContainer projectItems={projects} />
                             </div>
-                            <div className="flex justify-center mt-10 w-full">
+                            <div className="flex justify-center mt-auto w-full">
                                 <NavLink to="/project">
                                     <button className="animated-image text-clip border border-solid border-black bg-[#F3F4FF] p-5 font-bold text-3xl text-black inline-flex justify-center items-center space-x-2 rounded-2xl w-full">
                                         <p className="text-black">See More</p>
-                                        <img width="25px" src="/right-arrow.svg"/>
+                                        <img width="25px" alt="Right arrow" src="/right-arrow.svg" />
                                     </button>
                                 </NavLink>
                             </div>
@@ -196,12 +217,12 @@ const Home = (): JSX.Element => {
                                     </div>
                                     <div className="mb-5">
                                         <BlogPostList blogItems={blogs} />
-                                    </div>                                    
+                                    </div>
                                     <div className="flex justify-center mt-auto w-full">
                                         <NavLink to="/blog">
-                                        <button className="animated-image text-clip border border-solid border-black bg-[#F3F4FF] p-5 font-bold text-3xl inline-flex justify-center items-center space-x-2 rounded-2xl">
+                                            <button className="animated-image text-clip border border-solid border-black bg-[#F3F4FF] p-5 font-bold text-3xl inline-flex justify-center items-center space-x-2 rounded-2xl">
                                                 <p className="text-black">Read More</p>
-                                                <img width="25px" src="/right-arrow.svg"/>
+                                                <img width="25px" alt="Right arrow" src="/right-arrow.svg" />
                                             </button>
                                         </NavLink>
                                     </div>
@@ -216,7 +237,7 @@ const Home = (): JSX.Element => {
                                         <div className="flex w-full flex-col align-center justify-center item-center">
                                             <NavLink to="/contact" className="flex justify-center">
                                                 <button className="animated-image text-clip border border-solid border-black bg-[#F3F4FF] mt-5 p-5 font-bold text-3xl inline-flex justify-center items-center space-x-2 rounded-2xl">
-                                                    <p className="text-black font-bold">Contact Me 👋</p>                                                    
+                                                    <p className="text-black font-bold">Contact Me 👋</p>
                                                 </button>
                                             </NavLink>
                                         </div>

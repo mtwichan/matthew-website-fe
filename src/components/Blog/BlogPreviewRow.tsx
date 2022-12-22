@@ -10,8 +10,8 @@ const BlogPreviewRow = ({previewImg, title, date, description, slug}: BlogPrevie
     return (
         <a href={`/blog/${slug}`}>
             <div className="md:flex lg:flex mt-4 bg-[#FEFBF5] border-black border-solid border-2 animated-image rounded-lg">
-                <div className="p-6 md:w-1/2 lg:w-1/4 sm:h-[150px] md:h-[200px] lg:h-[225px]">
-                    <img className="h-full w-full object-fill border-black border-solid border rounded-lg" src={`${previewImg}`} alt={`${title} preview`}></img></div>
+                {/* <div className="p-6 md:w-1/2 lg:w-1/4 sm:h-[150px] md:h-[200px] lg:h-[225px]">
+                    <img className="h-full w-full object-fill border-black border-solid border rounded-lg" src={`${previewImg}`} alt={`${title} preview`}></img></div> */}
                 <div>
                 <div className="p-6"> 
                         <div className="pb-3">
